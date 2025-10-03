@@ -1,0 +1,20 @@
+on:
+  workflow_dispatch:
+jobs:
+  scala-steward:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: ${{ github.repository_owner == 'kantan-scala' }}
+    steps:
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: 11
+      - uses: scala-steward-org/scala-steward-action@53d486a68877f4a6d1e110e8058fe21e593db356 # v2.77.0
+        with:
+          github-app-id: 1565841
+          github-app-key: ${{ secrets.KANTAN_BOT_KEY }}
+          author-email: "220091877+kantan-bot[bot]@users.noreply.github.com"
+          author-name: "kantan-bot[bot]"
+        env:
+          JAVA_OPTS: "-Xmx4G"
